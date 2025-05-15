@@ -37,7 +37,8 @@ def get_data():
     dados = {
         "labels": [r['data_hora'].strftime('%H:%M:%S') for r in registros],
         "temperatura": [r['temperatura'] for r in registros],
-        "umidade": [r['umidade'] for r in registros]
+        "umidade": [r['umidade'] for r in registros],
+        "gas": [r['gas_ppm'] for r in registros]
     }
     return jsonify(dados)
 

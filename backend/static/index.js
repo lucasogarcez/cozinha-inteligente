@@ -1,20 +1,26 @@
 const ctx = document.getElementById('grafico').getContext('2d');
 
-const grafico = new Chart(ctx, {
+let grafico = new Chart(ctx, {
     type: 'line',
     data: {
         labels: [],
         datasets: [
             {
                 label: 'Temperatura (°C)',
-                data: [],
                 borderColor: 'red',
+                data: [],
                 fill: false
             },
             {
                 label: 'Umidade (%)',
-                data: [],
                 borderColor: 'blue',
+                data: [],
+                fill: false
+            },
+            {
+                label: 'Gás (ppm)',
+                borderColor: 'green',
+                data: [],
                 fill: false
             }
         ]
@@ -23,7 +29,7 @@ const grafico = new Chart(ctx, {
         responsive: true,
         scales: {
             y: {
-                beginAtZero: false
+                beginAtZero: true
             }
         }
     }
@@ -31,14 +37,15 @@ const grafico = new Chart(ctx, {
 
 function atualizarGrafico() {
     fetch('/api/dados')
-        .then(res => res.json())
-        .then(dados => {
-            grafico.data.labels.push(...dados.labels);
-            grafico.data.datasets[0].data.push(...dados.temperatura);
-            grafico.data.datasets[1].data.push(...dados.umidade);
+        .then(resp => resp.json())
+        .then(data => {
+            grafico.data.labels = data.labels;
+            grafico.data.datasets[0].data = data.temperatura;
+            grafico.data.datasets[1].data = data.umidade;
+            grafico.data.datasets[2].data = data.gas;
             grafico.update();
         });
 }
 
-// Atualiza a cada 5 segundos
+atualizarGrafico();
 setInterval(atualizarGrafico, 5000);
