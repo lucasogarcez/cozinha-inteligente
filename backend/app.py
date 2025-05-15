@@ -1,16 +1,20 @@
 from flask import Flask, render_template, jsonify
 import psycopg2
 from psycopg2.extras import RealDictCursor
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Carrega variáveis do arquivo .env
 
 app = Flask(__name__)
 
 # Configurações do banco
 db_config = {
-    'host': 'localhost',
-    'port': 5432,
-    'database': 'cozinha',
-    'user': 'seu_usuario',
-    'password': 'sua_senha'
+    'host': os.getenv('DB_HOST'),
+    'port': int(os.getenv('DB_PORT')),
+    'database': os.getenv('DB_NAME'),
+    'user': os.getenv('DB_USER'),
+    'password': os.getenv('DB_PASSWORD')
 }
 
 def conectar_db():
