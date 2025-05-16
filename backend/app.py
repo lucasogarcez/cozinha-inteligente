@@ -27,7 +27,7 @@ def get_data():
 
     # Busca os últimos 10 registros
     cur.execute("""
-        SELECT data_hora, temperatura, umidade
+        SELECT data_hora, temperatura, umidade, gas_ppm
         FROM sensores
         ORDER BY data_hora DESC
         LIMIT 10
