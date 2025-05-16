@@ -1,13 +1,16 @@
 import psycopg2
 import random
-from datetime import datetime
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Carrega variáveis do arquivo .env
 
 conn = psycopg2.connect(
-    host='localhost',
-    port=5432,
-    database='cozinha',
-    user='seu_usuario',
-    password='sua_senha'
+    host=os.getenv('DB_HOST'),
+    port=int(os.getenv('DB_PORT')),
+    database=os.getenv('DB_NAME'),
+    user=os.getenv('DB_USER'),
+    password=os.getenv('DB_PASSWORD')
 )
 cur = conn.cursor()
 
