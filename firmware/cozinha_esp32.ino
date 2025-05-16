@@ -3,7 +3,7 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-#include "secrets.h" // Arquivo com dados de WIFI e URL
+#include "secrets.h" // Contém WIFI_SSID, WIFI_PASSWORD, SERVER_URL
 
 void setup() {
   Serial.begin(115200);
@@ -18,7 +18,7 @@ void setup() {
 void loop() {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
-    http.begin(SERVER_URL);
+    http.begin(SERVER_URL); // URL vinda do secrets.h
     http.addHeader("Content-Type", "application/json");
 
     String json = "{\"temperatura\": 28.5, \"umidade\": 60, \"gas\": 350}";
@@ -26,6 +26,8 @@ void loop() {
 
     Serial.println("Resposta: " + String(resposta));
     http.end();
+  } else {
+    Serial.println("WiFi desconectado.");
   }
-  delay(10000);
+  delay(10000); // Espera 10 segundos antes de enviar de novo
 }
