@@ -3,12 +3,11 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-const char* ssid = "SUA_REDE";
-const char* senha = "SUA_SENHA";
+#include "secrets.h" // Arquivo com dados de WIFI e URL
 
 void setup() {
   Serial.begin(115200);
-  WiFi.begin(ssid, senha);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Conectando ao WiFi...");
@@ -19,7 +18,7 @@ void setup() {
 void loop() {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
-    http.begin("http://SEU_IP:5000/dados"); // Substitua pelo IP do seu servidor Flask
+    http.begin(SERVER_URL);
     http.addHeader("Content-Type", "application/json");
 
     String json = "{\"temperatura\": 28.5, \"umidade\": 60, \"gas\": 350}";
