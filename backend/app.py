@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from dotenv import load_dotenv
@@ -45,6 +45,28 @@ def get_data():
         "gas": [r['gas_ppm'] for r in registros]
     }
     return jsonify(dados)
+
+@app.route('/api/receber_dados', methods=['POST'])
+def receber_dados():
+    dados = request.get_json()
+    
+    temperatura = dados.get('temperatura')
+    umidade = dados.get('umidade')
+    gas_ppm = dados.get('gas_ppm')
+    
+    try:
+        conn = conectar_db()
+        cur = conn.cursor()
+        cur.execute("""
+            INSERT INTO sensores (temperatura, umidade, gas_ppm)
+            VALUES (%s, %s, %s)
+        """, (temperatura, umidade, gas_ppm))
+        conn.commit()
+        cur.close()
+        conn.close()
+        return jsonify({"status": "success"}), 201
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 @app.route('/')
 def index():
