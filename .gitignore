@@ -399,4 +399,5 @@ FodyWeavers.xsd
 
 # Secret files
 .env
-firmware/secrets.h
+/firmware/cozinha_esp32/secrets.h
+.venv
