@@ -1,12 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
     <title>Dashboard Sensores</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h2>Monitoramento em Tempo Real</h2>
-    <canvas id="grafico"></canvas>
-    <script src="/static/script.js"></script>
+    <h1>Monitoramento em Tempo Real</h1>
+    
+    <script>
+        const URL_SIRENE_ATIVA = "{{ url_for('static', filename='img/sirene_ativa.gif') }}";
+        const URL_SIRENE_INATIVA = "{{ url_for('static', filename='img/sirene_inativa.png') }}";
+        const URL_COOLER_ATIVO = "{{ url_for('static', filename='img/cooler_ativo.gif') }}";
+        const URL_COOLER_INATIVO = "{{ url_for('static', filename='img/cooler_inativo.png') }}";
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <div class="graficos-container">
+        <canvas id="graficoTemp"></canvas>
+        <canvas id="graficoUmidade"></canvas>
+        <canvas id="graficoGas"></canvas>
+        <div class="status-container">
+            <img id="sirene" src="{{ url_for('static', filename='img/sirene_inativa.png') }}" alt="Sirene">
+            <img id="cooler" src="{{ url_for('static', filename='img/cooler_inativo.png') }}" alt="Cooler">
+        </div>
+    </div>
+    
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
