@@ -73,7 +73,7 @@ function atualizarGrafico() {
             const sirene = document.getElementById('sirene');
             const cooler = document.getElementById('cooler');
 
-            if (gasAtual >= 2100) {
+            if (gasAtual >= 3500) {
                 sirene.src = URL_SIRENE_ATIVA;
             } else {
                 sirene.src = URL_SIRENE_INATIVA;

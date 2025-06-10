@@ -14,8 +14,9 @@ DHT dht(DHTPIN, DHTTYPE);
 
 // Atuadores
 #define BUZZER_PIN 13
-#define COOLER_PIN_FORA 12 //IN1
-#define COOLER_PIN_PUXA 15 //IN2
+#define COOLER_PIN_LIGA 15 //IN1
+#define COOLER_PIN_DESLIGA 2 //IN2
+#define LED_PIN 12
 
 void setup() {
   Serial.begin(115200);
@@ -23,9 +24,10 @@ void setup() {
   dht.begin();
 
   // Inicializa os atuadores
-  pinMode(BUZZER_PIN, OUTPUT);
-  pinMode(COOLER_PIN_FORA, OUTPUT);
-  pinMode(COOLER_PIN_PUXA, OUTPUT);
+  ppinMode(BUZZER_PIN, OUTPUT);
+  pinMode(COOLER_PIN_LIGA, OUTPUT);
+  pinMode(COOLER_PIN_DESLIGA, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
 
   // Conecta o módulo ao WiFi
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
@@ -58,21 +60,18 @@ void loop() {
   bool alarme = false;
 
   // Situação crítica: gás muito alto → Jogar ar para fora
-  if (gas >= 2100) {
-    digitalWrite(COOLER_PIN_FORA, HIGH);
-    digitalWrite(COOLER_PIN_PUXA, LOW);
-    alarme = true;
-  } else if (temperatura >= 30) { // Situação: temperatura alta, gás OK → Puxar ar para dentro
-    digitalWrite(COOLER_PIN_FORA, LOW);
-    digitalWrite(COOLER_PIN_PUXA, HIGH);
+  if (gas >= 2100 || temperatura >= 30) {
+    digitalWrite(COOLER_PIN_LIGA, HIGH);
+    digitalWrite(COOLER_PIN_DESLIGA, LOW);
     alarme = true;
   } else { // Situação estável: desligar tudo
-      digitalWrite(COOLER_PIN_FORA, LOW);
-      digitalWrite(COOLER_PIN_PUXA, LOW);
+      digitalWrite(COOLER_PIN_LIGA, LOW);
+      digitalWrite(COOLER_PIN_DESLIGA, LOW);
   }
 
   // Buzzer: ligado se algum risco detectado
   digitalWrite(BUZZER_PIN, alarme ? HIGH : LOW);
+  digitalWrite(LED_PIN, alarme ? HIGH : LOW);
 
   // Inicializa o servidor
   if (WiFi.status() == WL_CONNECTED) {
