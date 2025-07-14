@@ -130,10 +130,10 @@ Abra o navegador em `http://localhost:5000/` para visualizar os dados.
 
 ## 👨‍💻 Autores
 
-Desenvolvido por **Lucas Oliveira Garcez**  🔗 [GitHub](https://github.com/lucasogarcez)
-Desenvolvido por **Bruno Meireles**  🔗 [GitHub](https://github.com/Magr0g)
-Desenvolvido por **Marcos Lima**  🔗 [GitHub](https://github.com/marcoslima42)
-Desenvolvido por **Rafael Lopes**  🔗 [GitHub](https://github.com/RafaelAuLopes)
+- Desenvolvido por **Lucas Oliveira Garcez**  🔗 [GitHub](https://github.com/lucasogarcez)
+- Desenvolvido por **Bruno Meireles**  🔗 [GitHub](https://github.com/Magr0g)
+- Desenvolvido por **Marcos Lima**  🔗 [GitHub](https://github.com/marcoslima42)
+- Desenvolvido por **Rafael Lopes**  🔗 [GitHub](https://github.com/RafaelAuLopes)
 ---
 
 ## 📝 Licença
